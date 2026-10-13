@@ -1,0 +1,283 @@
+/* ====== Khung ====== */
+.ls-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-right: max(20px, env(safe-area-inset-right));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  color: var(--espresso);
+  background: var(--ivory);
+  overflow: hidden;
+  isolation: isolate;
+  transition: opacity 800ms ease, visibility 0s linear 800ms;
+}
+.ls-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .ls-screen {
+    padding: max(32px, env(safe-area-inset-top)) max(40px, env(safe-area-inset-right))
+      max(32px, env(safe-area-inset-bottom)) max(40px, env(safe-area-inset-left));
+  }
+}
+
+/* ====== Nền ====== */
+.ls-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.ls-photo,
+.ls-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ls-photo img {
+  object-fit: cover;
+  object-position: var(--focal-mobile, 50% 20%);
+}
+@media (min-width: 768px) {
+  .ls-photo img {
+    object-position: var(--focal-desktop, 50% 30%);
+  }
+}
+
+/* Nền tối giản khi chưa có ảnh campaign */
+.ls-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #faf6f0 0%, var(--ivory) 55%, #efe6da 100%);
+}
+
+/* Overlay nhẹ để chữ luôn đọc được */
+.ls-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(247, 242, 234, 0.55), transparent 28%),
+    linear-gradient(to top, rgba(247, 242, 234, 0.75), transparent 36%);
+}
+
+/* ====== Góc trên ====== */
+.ls-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  animation: rise 900ms ease-out 200ms both;
+}
+.ls-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ls-logo {
+  width: 96px;
+  height: auto;
+}
+.ls-brandLine,
+.ls-tagline span:first-child,
+.ls-subline,
+.ls-welcome,
+.ls-status,
+.ls-trustTitle {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 10px;
+  font-weight: 400;
+}
+.ls-brandLine {
+  color: var(--sand);
+}
+.ls-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  text-align: right;
+}
+.ls-rule {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--espresso);
+  opacity: 0.6;
+}
+@media (min-width: 768px) {
+  .ls-logo {
+    width: 140px;
+  }
+  .ls-brandLine,
+  .ls-tagline span:first-child {
+    font-size: 11px;
+  }
+  .ls-rule {
+    width: 72px;
+  }
+}
+
+/* ====== Khối trung tâm ====== */
+.ls-center {
+  align-self: end;
+  justify-self: center;
+  width: min(100%, 640px);
+  text-align: center;
+  padding-bottom: 8vh;
+  animation: rise 1000ms ease-out 450ms both;
+}
+@media (min-width: 768px) {
+  .ls-center {
+    align-self: center;
+    padding-bottom: 0;
+  }
+}
+.ls-welcome {
+  color: var(--espresso);
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+.ls-wordmark {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(56px, 16vw, 132px);
+  line-height: 0.95;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-indent: 0.16em; /* bù khoảng cách chữ cuối để canh giữa thật */
+  color: var(--espresso);
+}
+.ls-subline {
+  margin-top: 14px;
+  color: var(--sand);
+}
+
+/* Thanh tiến trình: một đường "gấu váy" mảnh */
+.ls-progress {
+  position: relative;
+  height: 9px;
+  margin: 34px auto 0;
+  width: 100%;
+}
+.ls-track,
+.ls-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 1px;
+}
+.ls-track {
+  background: var(--sand);
+  opacity: 0.45;
+}
+.ls-fill {
+  background: var(--espresso);
+  transform-origin: left center;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ls-needle {
+  position: absolute;
+  top: 1px;
+  width: 7px;
+  height: 7px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--burgundy);
+  transition: left 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ls-status {
+  margin-top: 14px;
+  color: var(--espresso);
+  opacity: 0.7;
+}
+
+/* ====== Tiện ích cuối ====== */
+.ls-trust {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  animation: rise 1000ms ease-out 700ms both;
+}
+.ls-trustItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  min-width: 0;
+}
+.ls-trustIcon {
+  width: 22px;
+  height: 22px;
+  color: var(--espresso);
+  opacity: 0.85;
+}
+.ls-trustTitle {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  color: var(--espresso);
+}
+.ls-trustNote {
+  display: none;
+  font-size: 11px;
+  color: var(--sand);
+}
+@media (min-width: 768px) {
+  .ls-trust {
+    gap: 24px;
+    max-width: 880px;
+    width: 100%;
+    justify-self: center;
+  }
+  .ls-trustIcon {
+    width: 28px;
+    height: 28px;
+  }
+  .ls-trustTitle {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+  .ls-trustNote {
+    display: block;
+  }
+}
+
+/* ====== Chuyển động ====== */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ls-screen,
+  .ls-top,
+  .ls-center,
+  .ls-trust {
+    animation: none;
+  }
+  .ls-screen {
+    transition: none;
+  }
+  .ls-fill,
+  .ls-needle {
+    transition: none;
+  }
+}
+
