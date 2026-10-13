@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
-import { motionTier } from "./motion-tier";
+import { motionTier, watchFrameRate } from "./motion-tier";
 
 /**
  * Cuộn mượt có quán tính (Lenis). Chỉ bật ở tầng "full" (máy đủ mạnh, có chuột);
@@ -22,8 +22,13 @@ export function SmoothScroll() {
     return () => window.clearTimeout(t);
   }, [pathname]);
 
+  // Đo FPS thực tế; nếu thấp, hạ tầng và tắt cuộn quán tính
+  useEffect(() => watchFrameRate(), []);
+
   useEffect(() => {
     if (motionTier() !== "full") return;
+    const onDowngrade = () => ref.current?.destroy();
+    window.addEventListener("motion-tier-change", onDowngrade, { once: true });
 
     const lenis = new Lenis({
       duration: 1.9,
@@ -66,6 +71,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener("load", onLoad);
+      window.removeEventListener("motion-tier-change", onDowngrade);
       document.removeEventListener("click", onClick);
       lenis.destroy();
       ref.current = null;

@@ -185,3 +185,47 @@
 
 /* Nút chính: hiệu ứng "nhấn" */
 .motion-full .pd-btn:active, .motion-full .card-btn:active, .motion-full .ct-btn:active, .motion-full .ld-btn:active { transform: scale(0.98); }
+
+/* ====== Bổ sung tầng LITE cho các hiệu ứng thêm sau ====== */
+/* Hover-zoom ảnh thẻ, thẻ danh mục, menu, dải giấy xé: không transition dài */
+.motion-lite .hm-item__link .hm-item__frame img,
+.motion-lite .ct-cat img,
+.motion-lite .pm__best img,
+.motion-lite .ps__item,
+.motion-lite .cc__card,
+.motion-lite .hm-item { transition: none; }
+/* Float/bob/shimmer chỉ chạy ở full (đã khai báo bằng .motion-full) → lite tự không có */
+/* Popup, lightbox, menu, gallery: fade ngắn */
+.motion-lite .bb, .motion-lite .bb__dialog, .motion-lite .pm__panel { animation-duration: 120ms; }
+.motion-lite .pd-gallery__main img { animation-duration: 150ms; }
+.motion-lite .ls-screen { transition-duration: 400ms; }
+.motion-lite .btt { transition-duration: 150ms; }
+/* Thẻ hero trên mobile: không hover-fan, chỉ đổi thẻ khi chạm */
+.motion-lite .hm-hero__card { transition: transform 350ms ease, left 350ms ease, width 350ms ease, opacity 250ms ease; }
+/* Nền hoa lặp bỏ ở lite đã có; nền hero/liên hệ/dải giấy dùng gradient + ảnh → bỏ ảnh */
+.motion-lite .hm-hero,
+.motion-lite .cc,
+.motion-lite .ps {
+  background-image: radial-gradient(110% 80% at 25% 0%, #3f322a 0%, #2a211b 50%, var(--black) 100%);
+}
+.motion-lite .ls-placeholder { background-image: linear-gradient(180deg, #faf6f0 0%, var(--ivory) 55%, #efe6da 100%); }
+.motion-lite .pd-bg { background-image: none; background-color: var(--ivory); }
+
+/* Khi bị hạ tầng giữa chừng (FPS thấp): dừng mọi animation vô hạn đang chạy */
+.motion-downgraded .cc__card,
+.motion-downgraded .ps__item,
+.motion-downgraded .sale-bar::after { animation: none !important; }
+
+/* OFF: bảo đảm các hiệu ứng mới cũng tắt */
+.motion-off .cc__card,
+.motion-off .ps__item,
+.motion-off .sale-bar::after,
+.motion-off .btt,
+.motion-off .pm__panel,
+.motion-off .bb,
+.motion-off .bb__dialog,
+.motion-off .lb,
+.motion-off .lb__fig img,
+.motion-off .pd-gallery__main img { animation: none !important; transition: none !important; }
+.motion-off .hm-hero, .motion-off .cc, .motion-off .ps, .motion-off .pd-bg, .motion-off .ls-placeholder { background-image: none; }
+.motion-off .hm-hero, .motion-off .cc, .motion-off .ps { background-color: var(--espresso); }
