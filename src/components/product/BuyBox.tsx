@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 import { business } from "@/lib/product";
 import type { Item } from "@/lib/collection";
 import { track } from "@/components/tracking/track";
@@ -92,7 +93,8 @@ export function BuyBox({ item, compact = false }: { item: Item; compact?: boolea
         </a>
       </div>
 
-      {open && (
+      {/* Portal vào <body>: section cha có transform/filter sẽ không bóp popup position:fixed */}
+      {open && createPortal(
         <div className="bb" onMouseDown={(e) => e.target === e.currentTarget && close()}>
           <div ref={dialog} className="bb__dialog" role="dialog" aria-modal="true" aria-labelledby="bb-title">
             <button type="button" className="bb__close" onClick={close} aria-label="Đóng">
@@ -192,7 +194,8 @@ export function BuyBox({ item, compact = false }: { item: Item; compact?: boolea
               </form>
             )}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
