@@ -41,7 +41,9 @@
   grid-template-rows: auto 1fr auto;
   padding: 76px 20px max(20px, env(safe-area-inset-bottom));
   color: var(--ivory);
-  background: radial-gradient(110% 80% at 25% 0%, #3f322a 0%, #2a211b 50%, var(--black) 100%);
+  background:
+    radial-gradient(110% 80% at 25% 0%, rgba(63, 50, 42, 0.92) 0%, rgba(42, 33, 27, 0.9) 50%, rgba(23, 21, 20, 0.95) 100%),
+    url("/bg/floral-brown.webp") center top / 720px auto repeat;
   overflow: hidden;
 }
 .hm-hero__top {
@@ -61,6 +63,30 @@
   width: 40%;
   max-width: 620px;
   display: none;
+}
+/* Mobile: cụm thẻ nằm trong luồng, thu gọn phía trên logo */
+@media (max-width: 899px) {
+  .hm-hero { grid-template-rows: auto auto 1fr auto; }
+  .hm-hero__stack {
+    display: block;
+    position: relative;
+    left: auto; top: auto; bottom: auto;
+    width: 100%;
+    max-width: min(320px, 100%);
+    height: 46vw;
+    max-height: 260px;
+    margin: 8px auto 0;
+  }
+  .hm-hero__card--front { width: 54%; }
+  .hm-hero__card--mid { left: 28%; width: 50%; }
+  .hm-hero__card--back { left: 48%; width: 46%; }
+  .hm-hero__paper { padding: 6px 6px 22px; }
+  .hm-hero__caption { font-size: 12px; left: 8px; right: 8px; bottom: 5px; }
+  .hm-hero__center { padding: 20px 0 24px; }
+  .hm-hero__logo { width: min(70vw, 360px); }
+  .hm-hero__trust strong { font-size: 10px; letter-spacing: 0.08em; }
+  .hm-hero__trust em { display: block; font-size: 13px; }
+  .hm-hero__trust li { gap: 8px; }
 }
 .hm-hero__card {
   position: absolute;
@@ -185,7 +211,7 @@
 .hm-btn:hover { background: var(--burgundy); }
 
 /* ====== Bộ sưu tập ====== */
-.hm-collection { padding: 24px 20px 72px; max-width: 1320px; margin: 0 auto; }
+.hm-collection { padding: 64px 20px 72px; max-width: 1320px; margin: 0 auto; }
 .hm-section__head {
   display: flex;
   justify-content: space-between;
@@ -200,9 +226,10 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px 16px;
 }
+.hm-item { min-width: 0; }
 .hm-item__link { display: block; color: inherit; text-decoration: none; }
 .hm-item__link .hm-item__frame img { transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1); }
 .hm-item__link:hover .hm-item__frame img { transform: scale(1.04); }
@@ -236,11 +263,11 @@
 /* ====== Lookbook ====== */
 .hm-look {
   display: grid;
-  background: var(--espresso);
+  background-color: var(--espresso);
   color: var(--ivory);
   overflow: hidden;
 }
-.hm-look__img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 60vw; }
+.hm-look__img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block; min-height: 60vw; }
 .hm-look__img--2 { display: none; }
 .hm-look__panel { padding: 56px 28px; }
 .hm-look__panel p { font-size: 17px; line-height: 1.75; margin: 22px 0 28px; color: rgba(247, 242, 234, 0.92); }
@@ -249,9 +276,7 @@
 .hm-size {
   display: grid;
   gap: 40px;
-  padding: 72px 20px;
-  max-width: 1320px;
-  margin: 0 auto;
+  padding: 72px max(20px, calc((100% - 1320px) / 2 + 20px));
 }
 .hm-size__side p { font-size: 17px; line-height: 1.75; color: #3a2d24; margin: 18px 0 20px; }
 .hm-size__band { display: grid; gap: 12px; }
@@ -276,7 +301,10 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 .hm-strip li { flex: 0 0 60%; scroll-snap-align: start; }
 .hm-strip img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
@@ -287,7 +315,7 @@
 .hm-steps__list p { margin: 0; font-family: var(--font-display), Georgia, serif; font-size: 21px; font-weight: 500; line-height: 1.5; color: #3a2d24; }
 
 /* ====== Ba cam kết ====== */
-.hm-promise { background: var(--nude); padding: 72px 20px; }
+.hm-promise { background-color: var(--nude); padding: 72px 20px; }
 .hm-promise__head {
   max-width: 1320px;
   margin: 0 auto 36px;
@@ -313,9 +341,7 @@
 .hm-faq {
   display: grid;
   gap: 32px;
-  padding: 72px 20px;
-  max-width: 1320px;
-  margin: 0 auto;
+  padding: 72px max(20px, calc((100% - 1320px) / 2 + 20px));
 }
 .hm-faq__img { width: 100%; max-width: 320px; height: auto; display: block; margin-top: 28px; padding: 8px; background: #fff; }
 .hm-faq__list { margin: 0; border-top: 1px solid var(--espresso); }
@@ -325,24 +351,29 @@
 
 /* ====== Footer ====== */
 .hm-foot {
-  background: var(--black);
+  background-color: var(--black);
   color: var(--ivory);
-  padding: 64px 20px 28px;
+  padding: 56px 20px max(24px, env(safe-area-inset-bottom));
+  overflow: hidden;
 }
-.hm-foot__brand img { width: 200px; height: auto; }
+.hm-foot__brand img { width: 160px; height: auto; }
 .hm-foot__brand p { margin: 12px 0 0; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--nude); }
-.hm-foot__cols { margin: 40px 0 0; display: grid; gap: 28px; }
+.hm-foot__cols { margin: 36px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+.hm-foot__cols > div:last-child { grid-column: 1 / -1; }
 .hm-foot__cols dt { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(247, 242, 234, 0.6); margin-bottom: 10px; }
-.hm-foot__cols dd { margin: 0 0 8px; font-family: var(--font-display), Georgia, serif; font-size: 24px; font-weight: 500; }
+.hm-foot__cols dd { margin: 0 0 6px; font-family: var(--font-display), Georgia, serif; font-size: 20px; font-weight: 500; }
 .hm-foot__cols a { color: inherit; text-decoration: none; }
 .hm-foot__cols a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .hm-foot__bar {
-  margin-top: 48px;
-  padding-top: 20px;
+  margin-top: 40px;
+  padding-top: 18px;
+  padding-right: 64px; /* chừa chỗ cho nút lên đầu trang */
   border-top: 1px solid rgba(247, 242, 234, 0.2);
   display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(247, 242, 234, 0.7);
@@ -370,15 +401,15 @@
   .hm-intro__body .hm-lead { font-size: 21px; }
   .hm-intro__text { font-size: 16px; }
 
-  .hm-collection { padding: 24px 64px 120px; }
-  .hm-grid { grid-template-columns: repeat(4, 1fr); gap: 44px 28px; }
+  .hm-collection { padding: 112px 64px 120px; }
+  .hm-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px 28px; }
 
   .hm-look { grid-template-columns: 1fr 1fr 1fr; }
   .hm-look__img { min-height: 0; height: 640px; }
   .hm-look__img--2 { display: block; }
   .hm-look__panel { padding: 96px 56px; display: flex; flex-direction: column; justify-content: center; }
 
-  .hm-size { grid-template-columns: 4fr 8fr; gap: 56px; padding: 120px 64px; align-items: start; }
+  .hm-size { grid-template-columns: 4fr 8fr; gap: 56px; padding: 120px max(64px, calc((100% - 1320px) / 2 + 64px)); align-items: start; }
   .hm-size__band { grid-column: 1 / -1; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .hm-size__band img { aspect-ratio: 3 / 4; object-position: 50% 20%; }
 
@@ -391,11 +422,15 @@
   .hm-promise__head { grid-template-columns: 1fr auto; align-items: end; }
   .hm-promise__list { grid-template-columns: repeat(3, 1fr); gap: 40px; }
 
-  .hm-faq { grid-template-columns: 4fr 8fr; gap: 64px; padding: 120px 64px; align-items: start; }
+  .hm-faq { grid-template-columns: 4fr 8fr; gap: 64px; padding: 120px max(64px, calc((100% - 1320px) / 2 + 64px)); align-items: start; }
   .hm-faq__list > div { grid-template-columns: 1fr 1.4fr; gap: 40px; padding: 28px 0; }
 
   .hm-foot { padding: 96px 64px 32px; display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 64px; }
+  .hm-foot__brand img { width: 200px; }
   .hm-foot__cols { margin: 0; grid-template-columns: auto auto auto; gap: 48px; }
+  .hm-foot__cols > div:last-child { grid-column: auto; }
+  .hm-foot__cols dd { font-size: 24px; }
+  .hm-foot__bar { padding-right: 0; font-size: 12px; }
   .hm-foot__bar { grid-column: 1 / -1; }
 }
 
@@ -404,7 +439,9 @@
   position: relative;
   overflow: hidden;
   padding: 88px 20px 96px;
-  background: radial-gradient(110% 80% at 50% 0%, #3b2f27 0%, #2a211b 55%, var(--black) 100%);
+  background:
+    radial-gradient(110% 80% at 50% 0%, rgba(59, 47, 39, 0.9) 0%, rgba(42, 33, 27, 0.9) 55%, rgba(23, 21, 20, 0.95) 100%),
+    url("/bg/floral-brown.webp") center / 720px auto repeat;
   color: var(--ivory);
   text-align: center;
 }

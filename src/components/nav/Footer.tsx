@@ -5,7 +5,7 @@ import { business } from "@/lib/product";
 /** Footer dùng chung cho mọi trang. */
 export function Footer() {
   return (
-    <footer className="hm-foot" id="lien-he">
+    <footer className="hm-foot bg-black" id="lien-he">
       <div className="hm-foot__brand">
         <Link href="/">
           <Image src="/brand/solisst-logo.png" alt="Solisst" width={1430} height={370} />

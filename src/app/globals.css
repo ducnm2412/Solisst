@@ -26,6 +26,16 @@
 }
 
 html {
+  /* Khóa tràn ngang: không cho phần tử nào nới rộng khung nhìn trên mobile.
+     Chỉ đặt ở <html>; đặt ở <body> sẽ biến body thành khung chứa của
+     position:fixed và cắt mất menu/popup. */
+  overflow-x: clip;
+}
+body {
+  max-width: 100%;
+}
+
+html {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;

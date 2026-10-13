@@ -40,7 +40,7 @@ export function Catalog() {
   ];
 
   return (
-    <section id="tat-ca" className="ct-all" aria-labelledby="all-title">
+    <section id="tat-ca" className="ct-all bg-cream" aria-labelledby="all-title">
       <div className="ct-all__head">
         <h2 id="all-title" className="hm-h2">Tất cả sản phẩm</h2>
         <div className="ct-tools">

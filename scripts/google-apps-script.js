@@ -16,7 +16,7 @@ const NOTIFY_EMAIL = "thay-bang-email-cua-shop@gmail.com";
 const SECRET = "doi-chuoi-nay"; // phải trùng ORDER_WEBHOOK_SECRET
 
 const HEADERS = [
-  "Thời gian", "Sản phẩm", "Số lượng", "Màu", "Size", "Thành tiền",
+  "Thời gian", "Sản phẩm", "Số lượng", "Màu", "Size", "Thành tiền", "Thanh toán",
   "Họ tên", "SĐT", "Địa chỉ", "Ghi chú", "Nguồn", "Thiết bị",
 ];
 
@@ -29,7 +29,7 @@ function doPost(e) {
     const o = payload.order;
     const sheet = getSheet_();
     sheet.appendRow([
-      new Date(o.createdAt), o.product, o.qty, o.color, o.size, o.total,
+      new Date(o.createdAt), o.product, o.qty, o.color, o.size, o.total, o.payment || "",
       o.name, "'" + o.phone, o.address, o.note, o.source, o.userAgent,
     ]);
     notify_(o);
@@ -56,6 +56,7 @@ function notify_(o) {
     "Sản phẩm: " + o.product,
     "Số lượng: " + o.qty + "  |  Màu: " + o.color + "  |  Size: " + o.size,
     "Thành tiền: " + Number(o.total).toLocaleString("vi-VN") + " đ",
+    "Thanh toán: " + (o.payment || "Thanh toán khi nhận hàng"),
     "",
     "Khách: " + o.name,
     "SĐT: " + o.phone,

@@ -10,8 +10,11 @@ type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done"; total: nu
 const toNumber = (p: string | null) => (p ? Number(p.replace(/\D/g, "")) : 0);
 const vnd = (n: number) => new Intl.NumberFormat("vi-VN").format(n) + " ₫";
 
-/** Hai nút hành động + popup đặt hàng cho một sản phẩm trong bộ sưu tập. */
-export function BuyBox({ item }: { item: Item }) {
+/**
+ * Hai nút hành động + popup đặt hàng cho một sản phẩm trong bộ sưu tập.
+ * `compact` = phiên bản nhỏ dưới thẻ sản phẩm trong lưới.
+ */
+export function BuyBox({ item, compact = false }: { item: Item; compact?: boolean }) {
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState(item.sizes[item.sizes.length > 1 ? 1 : 0]);
   const [qty, setQty] = useState(1);
@@ -58,7 +61,7 @@ export function BuyBox({ item }: { item: Item }) {
           name: fd.get("name"),
           phone: fd.get("phone"),
           address: fd.get("address"),
-          note: fd.get("note"),
+          note: "",
         }),
       });
       const data = (await res.json()) as { ok?: boolean; total?: number; error?: string };
@@ -75,12 +78,17 @@ export function BuyBox({ item }: { item: Item }) {
 
   return (
     <>
-      <div className="pd-actions">
-        <button type="button" className="pd-btn" onClick={() => setOpen(true)}>
+      <div className={compact ? "card-actions" : "pd-actions"}>
+        <button type="button" className={compact ? "card-btn" : "pd-btn"} onClick={() => setOpen(true)}>
           Mua hàng
         </button>
-        <a href={business.facebook} target="_blank" rel="noopener noreferrer" className="pd-btn pd-btn--ghost">
-          Nhắn Facebook để đặt
+        <a
+          href={business.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={compact ? "card-btn card-btn--ghost" : "pd-btn pd-btn--ghost"}
+        >
+          {compact ? "Nhắn Facebook" : "Nhắn Facebook để đặt"}
         </a>
       </div>
 
@@ -144,10 +152,6 @@ export function BuyBox({ item }: { item: Item }) {
                   <label className="ld-input ld-input--full">
                     <span>Địa chỉ nhận hàng</span>
                     <input name="address" type="text" autoComplete="street-address" required minLength={8} placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" />
-                  </label>
-                  <label className="ld-input ld-input--full">
-                    <span>Ghi chú (không bắt buộc)</span>
-                    <input name="note" type="text" maxLength={500} />
                   </label>
                 </div>
 

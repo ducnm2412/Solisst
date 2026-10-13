@@ -55,7 +55,9 @@
 .ls-placeholder {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #faf6f0 0%, var(--ivory) 55%, #efe6da 100%);
+  background:
+    linear-gradient(180deg, rgba(250, 246, 240, 0.82) 0%, rgba(247, 242, 234, 0.85) 55%, rgba(239, 230, 218, 0.88) 100%),
+    url("/bg/floral-cream.webp") center / 640px auto repeat;
 }
 
 /* Overlay nhẹ để chữ luôn đọc được */
@@ -281,3 +283,6 @@
   }
 }
 
+
+/* Đã xem intro trong phiên: ẩn ngay từ HTML server, trước khi React chạy */
+.intro-seen .ls-screen { display: none; }

@@ -120,34 +120,43 @@
   position: fixed;
   inset: 0;
   top: 64px;
+  height: calc(100svh - 64px);
   z-index: 39;
   overflow-y: auto;
   isolation: isolate;
-  padding: 32px 28px;
+  padding: 16px 24px max(16px, env(safe-area-inset-bottom));
   background: var(--ivory);
   color: var(--espresso);
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 16px;
 }
 .nav__sheet[hidden] { display: none; }
 .nav__sheet ul { list-style: none; margin: 0; padding: 0; }
 .nav__sheet li a {
   display: block;
-  padding: 14px 0;
+  padding: 9px 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 500;
   color: var(--espresso);
   text-decoration: none;
   border-bottom: 1px solid rgba(48, 38, 32, 0.15);
 }
-.nav__cta--sheet { display: inline-flex; align-self: flex-start; color: var(--espresso); }
-.nav__sheetNote { margin: auto 0 0; font-size: 14px; color: #5a4b40; }
+.nav__cta--sheet { display: inline-flex; align-self: flex-start; color: var(--espresso); min-height: 36px; font-size: 11px; }
+.nav__sheetNote { margin: auto 0 0; padding: 8px 0 0; font-size: 12px; color: #5a4b40; }
 .nav__sheetNote a { color: inherit; }
 
 /* Khi menu mở trên hero tối, thanh chuyển sang sáng để khớp sheet */
-.nav--open { color: var(--espresso); background: var(--ivory); z-index: 60; }
+/* Khi mở menu: tắt backdrop-filter, vì filter trên nav sẽ biến nav thành khung chứa
+   của sheet position:fixed và bóp sheet xuống đúng chiều cao thanh nav. */
+.nav--open {
+  color: var(--espresso);
+  background: var(--ivory);
+  z-index: 60;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 .nav--open .nav__sheet { z-index: 59; }
 
 @media (min-width: 900px) {
@@ -161,7 +170,20 @@
 
 /* ====== Menu thả xuống Sản phẩm ====== */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.pm { position: relative; }
+.pm { position: relative; display: inline-flex; align-items: center; gap: 2px; }
+.pm__toggle {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+}
+.pm__toggle svg { transition: transform 200ms ease; }
+.pm.is-open .pm__toggle svg { transform: rotate(180deg); }
 .pm__trigger {
   gap: 6px;
   font-family: inherit;
@@ -171,8 +193,6 @@
   cursor: pointer;
 }
 .pm__trigger svg { display: block; }
-.pm__trigger svg { transition: transform 200ms ease; }
-.pm.is-open .pm__trigger svg { transform: rotate(180deg); }
 .pm__trigger::after {
   content: "";
   position: absolute;
@@ -289,9 +309,9 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 9px 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 500;
   color: var(--espresso);
   background: none;
@@ -302,13 +322,13 @@
 }
 .nav__sub button svg { transition: transform 200ms ease; }
 .nav__sub.is-open button svg { transform: rotate(180deg); }
-.nav__sub ul { list-style: none; margin: 0; padding: 6px 0 10px 18px; border-bottom: 1px solid rgba(48, 38, 32, 0.15); }
+.nav__sub ul { list-style: none; margin: 0; padding: 4px 0 8px 16px; border-bottom: 1px solid rgba(48, 38, 32, 0.15); }
 .nav__sub ul[hidden] { display: none; }
 .nav__sub ul a {
   display: block;
-  padding: 10px 0;
+  padding: 7px 0;
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 400;
   color: var(--espresso);
   text-decoration: none;
@@ -318,3 +338,29 @@
 @media (max-width: 899px) {
   .pm { display: none; }
 }
+
+/* ====== Nút lên đầu trang ====== */
+.btt {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 45;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(48, 38, 32, 0.2);
+  border-radius: 50%;
+  background: var(--ivory);
+  color: var(--espresso);
+  box-shadow: 0 10px 24px rgba(23, 21, 20, 0.2);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 250ms ease, background 150ms ease, color 150ms ease;
+}
+.btt.is-show { opacity: 1; transform: none; pointer-events: auto; }
+.btt:hover { background: var(--espresso); color: var(--ivory); }
+.btt:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+@media (min-width: 900px) { .btt { right: 28px; bottom: 28px; } }

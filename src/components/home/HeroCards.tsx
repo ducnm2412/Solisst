@@ -5,7 +5,7 @@ import { useState } from "react";
 import { byId } from "@/lib/collection";
 
 const cards = [
-  { slug: "dam-satin-nau", src: "/collection/hero-dam-satin-nau.webp", width: 634, height: 1024, raw: true },
+  { slug: "dam-satin-nau", src: "/collection/hero-dam-satin-nau.webp", width: 1136, height: 1840, raw: true },
   { slug: "dam-tulle-hong" },
   { slug: "dam-ong-navy" },
 ] as const;
@@ -32,7 +32,7 @@ export function HeroCards() {
   };
 
   return (
-    <div className="hm-hero__stack" role="group" aria-label="Ảnh nổi bật, bấm để đổi thẻ">
+    <div className="hm-hero__stack" role="group" aria-label="Ảnh nổi bật, bấm để đổi thẻ" data-parallax="0.05">
       {cards.map((c, i) => {
         const item = byId[c.slug];
         const src = "src" in c ? c.src : item.src;

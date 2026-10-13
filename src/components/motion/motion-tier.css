@@ -1,0 +1,187 @@
+/* ====== Phân tầng chuyển động theo thiết bị (xem motion-tier.ts) ====== */
+
+/* --- Chỉ bật hiệu ứng rê chuột khi thật sự có chuột --- */
+@media (hover: none) {
+  .hm-item__link:hover .hm-item__frame img,
+  .ct-cat a:hover img,
+  .pm__best a:hover img,
+  .ps__item:hover,
+  .cc:hover .cc__card,
+  .hm-hero__stack:hover .hm-hero__card--back,
+  .hm-hero__stack:hover .hm-hero__card--mid,
+  .hm-hero__stack:hover .hm-hero__card--front {
+    transform: none;
+  }
+  .ps__item:hover { transform: rotate(var(--tilt)); }
+  .hm-hero__stack:hover .hm-hero__card--back { transform: rotate(10deg); }
+  .hm-hero__stack:hover .hm-hero__card--mid { transform: rotate(5deg); }
+  .hm-hero__stack:hover .hm-hero__card--front { transform: rotate(-3deg); }
+}
+
+/* --- LITE: điện thoại, máy yếu, tiết kiệm dữ liệu --- */
+.motion-lite .nav,
+.motion-lite .nav--solid,
+.motion-lite .ld-top,
+.motion-lite .bb {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.motion-lite .nav--solid { background: rgba(247, 242, 234, 0.98); }
+.motion-lite .bb { background: rgba(23, 21, 20, 0.7); }
+
+/* drop-shadow (filter) tốn GPU hơn box-shadow rất nhiều trên máy yếu */
+.motion-lite .hm-hero__card,
+.motion-lite .cc__card,
+.motion-lite .ps__paper {
+  filter: none;
+}
+.motion-lite .hm-hero__paper,
+.motion-lite .cc__card,
+.motion-lite .ps__paper {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+/* mép giấy xé bằng clip-path vẫn nhẹ, giữ nguyên; bỏ transition kích thước thẻ hero */
+.motion-lite .hm-hero__card {
+  transition: transform 450ms ease, opacity 300ms ease;
+}
+
+/* reveal: chỉ fade, không trượt, thời gian ngắn hơn */
+.motion-lite [data-reveal],
+.motion-lite [data-reveal="stagger"] > * {
+  transform: none;
+  transition-duration: 0.5s;
+}
+.motion-lite [data-reveal="stagger"].is-in > *:nth-child(n) { transition-delay: 0s; }
+.motion-lite [data-reveal="image"] { clip-path: none; }
+
+/* hero mở đầu: ngắn và ít lệch */
+.motion-lite .app-ready .hm-hero__top,
+.motion-lite .app-ready .hm-hero__stack,
+.motion-lite .app-ready .hm-hero__center > *,
+.motion-lite .app-ready .hm-hero__trust,
+.motion-lite .app-ready .nav > * {
+  animation-duration: 0.5s;
+  animation-delay: 0.05s;
+}
+
+/* parallax: JS đã bỏ qua ở lite; đảm bảo không còn transform sót */
+.motion-lite [data-parallax] { transform: none !important; will-change: auto; }
+
+/* màn loading: bỏ trễ chuỗi */
+.motion-lite .ls-top,
+.motion-lite .ls-center,
+.motion-lite .ls-trust {
+  animation-duration: 0.4s;
+  animation-delay: 0s;
+}
+
+/* --- OFF: người dùng yêu cầu giảm chuyển động --- */
+.motion-off *,
+.motion-off *::before,
+.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+.motion-off [data-reveal],
+.motion-off [data-reveal="stagger"] > *,
+.motion-off [data-reveal="image"] {
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+}
+.motion-off .hm-hero__top,
+.motion-off .hm-hero__stack,
+.motion-off .hm-hero__center > *,
+.motion-off .hm-hero__trust,
+.motion-off .nav > * {
+  opacity: 1;
+}
+.motion-off .nav--solid,
+.motion-off .bb { backdrop-filter: none; }
+.motion-off .hm-hero__card,
+.motion-off .cc__card,
+.motion-off .ps__paper { filter: none; }
+
+/* ====== Nền hoa line-art cho các section (dùng chung) ====== */
+/* Sáng: hoa kem mờ trên ivory/nude. Tối: hoa nâu mờ trên espresso/black. */
+.bg-cream {
+  background-image:
+    linear-gradient(180deg, rgba(247, 242, 234, 0.9), rgba(247, 242, 234, 0.9)),
+    url("/bg/floral-cream.webp");
+  background-size: auto, 640px auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat;
+}
+.bg-nude {
+  background-image:
+    linear-gradient(180deg, rgba(216, 194, 172, 0.9), rgba(216, 194, 172, 0.9)),
+    url("/bg/floral-cream.webp");
+  background-size: auto, 640px auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat;
+}
+.bg-brown {
+  background-image:
+    linear-gradient(180deg, rgba(48, 38, 32, 0.9), rgba(48, 38, 32, 0.92)),
+    url("/bg/floral-brown.webp");
+  background-size: auto, 720px auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat;
+}
+.bg-black {
+  background-image:
+    linear-gradient(180deg, rgba(23, 21, 20, 0.93), rgba(23, 21, 20, 0.95)),
+    url("/bg/floral-brown.webp");
+  background-size: auto, 720px auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat;
+}
+/* Máy yếu / giảm chuyển động: bỏ ảnh nền lặp, giữ màu phẳng */
+.motion-lite .bg-cream, .motion-lite .bg-nude, .motion-lite .bg-brown, .motion-lite .bg-black,
+.motion-off .bg-cream, .motion-off .bg-nude, .motion-off .bg-brown, .motion-off .bg-black {
+  background-image: none;
+}
+.motion-lite .bg-cream, .motion-off .bg-cream { background-color: var(--ivory); }
+.motion-lite .bg-nude, .motion-off .bg-nude { background-color: var(--nude); }
+.motion-lite .bg-brown, .motion-off .bg-brown { background-color: var(--espresso); }
+.motion-lite .bg-black, .motion-off .bg-black { background-color: var(--black); }
+
+/* ====== Chuyển động bổ sung (chỉ tầng full) ====== */
+/* Thẻ polaroid ở mục liên hệ trôi nhẹ như treo dây */
+@keyframes floatA { 0%, 100% { transform: rotate(var(--tilt)) translateY(0); } 50% { transform: rotate(var(--tilt)) translateY(-10px); } }
+@keyframes floatB { 0%, 100% { transform: rotate(var(--tilt)) translateY(0); } 50% { transform: rotate(var(--tilt)) translateY(-14px); } }
+.motion-full .cc__card--tl, .motion-full .cc__card--br { animation: floatA 7s ease-in-out infinite; }
+.motion-full .cc__card--tr, .motion-full .cc__card--bl { animation: floatB 9s ease-in-out infinite 1.2s; }
+.motion-full .cc:hover .cc__card { animation-play-state: paused; }
+
+/* Dải ảnh giấy xé: nhấp nhô xen kẽ */
+@keyframes bob { 0%, 100% { transform: rotate(var(--tilt)) translateY(0); } 50% { transform: rotate(var(--tilt)) translateY(-6px); } }
+.motion-full .ps__item { animation: bob 6s ease-in-out infinite; }
+.motion-full .ps__item:nth-child(2n) { animation-delay: 1s; }
+.motion-full .ps__item:nth-child(3n) { animation-delay: 2s; }
+.motion-full .ps__item:hover { animation-play-state: paused; }
+
+/* Thanh flash sale: tia sáng lướt qua mỗi vài giây */
+.motion-full .sale-bar { position: relative; overflow: hidden; }
+.motion-full .sale-bar::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 30%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  animation: shimmer 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer { 0%, 60% { left: -40%; } 100% { left: 110%; } }
+
+/* Thẻ sản phẩm: nâng nhẹ khi rê chuột */
+.motion-full .hm-item { transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1); }
+.motion-full .hm-item:has(.hm-item__link:hover) { transform: translateY(-4px); }
+
+/* Nút chính: hiệu ứng "nhấn" */
+.motion-full .pd-btn:active, .motion-full .card-btn:active, .motion-full .ct-btn:active, .motion-full .ld-btn:active { transform: scale(0.98); }

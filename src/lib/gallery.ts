@@ -27,16 +27,16 @@ export const gallery: Record<string, GalleryImage[]> = {
     { src: "/collection/gallery/bo-ngu-dai-tay-chat-lieu.webp", width: 912, height: 896, label: "Cận chất liệu" },
   ],
   "dam-ong-navy": [
-    { src: "/collection/gallery/dam-ong-navy-toan-than.webp", width: 615, height: 1024, label: "Toàn thân" },
-    { src: "/collection/gallery/dam-ong-navy-chat-lieu.webp", width: 922, height: 922, label: "Cận chất liệu" },
+    { src: "/collection/gallery/dam-ong-navy-toan-than.webp", width: 960, height: 1600, label: "Toàn thân" },
+    { src: "/collection/gallery/dam-ong-navy-chat-lieu.webp", width: 720, height: 720, label: "Cận chất liệu" },
   ],
   "dam-satin-nau": [
-    { src: "/collection/gallery/dam-satin-nau-truoc.webp", width: 532, height: 1024, label: "Mặt trước" },
-    { src: "/collection/gallery/dam-satin-nau-sau.webp", width: 533, height: 1024, label: "Mặt sau" },
-    { src: "/collection/gallery/dam-satin-nau-chat-lieu.webp", width: 922, height: 922, label: "Cận chất liệu" },
+    { src: "/collection/gallery/dam-satin-nau-truoc.webp", width: 832, height: 1600, label: "Mặt trước" },
+    { src: "/collection/gallery/dam-satin-nau-sau.webp", width: 832, height: 1600, label: "Mặt sau" },
+    { src: "/collection/gallery/dam-satin-nau-chat-lieu.webp", width: 720, height: 720, label: "Cận chất liệu" },
   ],
   "dam-tulle-hong": [
-    { src: "/collection/gallery/dam-tulle-hong-toan-than.webp", width: 615, height: 1024, label: "Toàn thân" },
-    { src: "/collection/gallery/dam-tulle-hong-chat-lieu.webp", width: 922, height: 922, label: "Cận chất liệu" },
+    { src: "/collection/gallery/dam-tulle-hong-toan-than.webp", width: 960, height: 1600, label: "Toàn thân" },
+    { src: "/collection/gallery/dam-tulle-hong-chat-lieu.webp", width: 720, height: 720, label: "Cận chất liệu" },
   ],
 };

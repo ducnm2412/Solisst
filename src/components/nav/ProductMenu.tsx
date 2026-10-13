@@ -54,14 +54,17 @@ export function ProductMenu({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <li ref={wrap} className={`pm ${open ? "is-open" : ""}`} onMouseEnter={enter} onMouseLeave={leave}>
+      <Link href="/san-pham" className="pm__trigger" onClick={go}>
+        Sản phẩm
+      </Link>
       <button
         type="button"
-        className="pm__trigger"
+        className="pm__toggle"
         aria-expanded={open}
         aria-haspopup="true"
+        aria-label={open ? "Đóng menu sản phẩm" : "Mở menu sản phẩm"}
         onClick={() => setOpen((v) => !v)}
       >
-        Sản phẩm
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
           <path d="M1 3.5 5 7l4-3.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
         </svg>

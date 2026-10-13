@@ -6,6 +6,7 @@ import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { Gallery } from "./Gallery";
 import { BuyBox } from "./BuyBox";
+import { Countdown } from "@/components/landing/Countdown";
 import { gallery } from "@/lib/gallery";
 import { IconCare, IconParcel, IconTag } from "@/components/loading/TrustIcons";
 
@@ -23,6 +24,7 @@ function ItemGrid({ list }: { list: Item[] }) {
               <span className="hm-ph">{it.price ?? "[Giá]"}</span>
             </p>
           </Link>
+          <BuyBox item={it} compact />
         </li>
       ))}
     </ul>
@@ -38,6 +40,8 @@ export function ProductPage({ item }: { item: Item }) {
     <>
       <Navbar solidAlways />
 
+      <Countdown variant="bar" className="sale-bar--top" />
+
       <nav className="pd-crumb" aria-label="Đường dẫn">
         <Link href="/">Trang chủ</Link>
         <span aria-hidden="true">/</span>
@@ -46,6 +50,7 @@ export function ProductPage({ item }: { item: Item }) {
         <span>{item.name}</span>
       </nav>
 
+      <div className="pd-bg">
       <article className="pd">
         <div className="pd-media">
           <Gallery
@@ -92,9 +97,10 @@ export function ProductPage({ item }: { item: Item }) {
 
         </div>
       </article>
+      </div>
 
       {/* ---- Chi tiết: mô tả, bảo quản, bảng size, cam kết ---- */}
-      <section className="pd-details" data-reveal>
+      <section className="pd-details bg-cream" data-reveal>
         <div className="pd-details__grid">
       <section className="pd-desc">
             <h2>Mô tả</h2>
@@ -144,7 +150,7 @@ export function ProductPage({ item }: { item: Item }) {
       </section>
 
       {similar.length > 0 && (
-        <section className="pd-more" data-reveal>
+        <section className="pd-more bg-cream" data-reveal>
           <div className="hm-section__head">
             <h2 className="hm-h2">{isDress ? "Đầm tương tự" : "Bộ mặc nhà tương tự"}</h2>
             <Link href="/#bo-suu-tap" className="hm-link">Xem tất cả</Link>
@@ -154,7 +160,7 @@ export function ProductPage({ item }: { item: Item }) {
       )}
 
       {others.length > 0 && (
-        <section className="pd-more pd-more--alt" data-reveal>
+        <section className="pd-more pd-more--alt bg-nude" data-reveal>
           <div className="hm-section__head">
             <h2 className="hm-h2">{isDress ? "Bộ mặc nhà bạn có thể thích" : "Đầm cho buổi tối"}</h2>
             <Link href="/#bo-suu-tap" className="hm-link">Xem bộ sưu tập</Link>

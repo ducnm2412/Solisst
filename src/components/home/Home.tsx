@@ -4,7 +4,9 @@ import { business } from "@/lib/product";
 import { byId, faqs, items, promises, sizeGuide, steps } from "@/lib/collection";
 import { IconCare, IconParcel, IconTag } from "@/components/loading/TrustIcons";
 import { Navbar } from "@/components/nav/Navbar";
+import { BuyBox } from "@/components/product/BuyBox";
 import { Footer } from "@/components/nav/Footer";
+import { Countdown } from "@/components/landing/Countdown";
 import { HeroCards } from "./HeroCards";
 import { ContactCta } from "./ContactCta";
 
@@ -60,27 +62,7 @@ export function Home() {
         </ul>
       </section>
 
-      {/* ---- Giới thiệu ---- */}
-      <section className="hm-intro" data-reveal>
-        <figure className="hm-intro__fig" data-parallax="0.06">
-          <Image src={byId["dam-satin-nau"].src} alt={byId["dam-satin-nau"].name} width={1024} height={1024} sizes="(min-width: 900px) 44vw, 100vw" quality={90} />
-          <figcaption>Đầm satin nâu dáng ôm, bán chạy nhất mùa này</figcaption>
-        </figure>
-        <div className="hm-intro__body">
-          <p className="hm-eyebrow">{business.city}, Việt Nam</p>
-          <h1 className="hm-h1">Thời trang cho người phụ nữ biết mình đẹp nhất ở đâu.</h1>
-          <p className="hm-lead">
-            SOLISST chọn chất liệu trước, chọn phom dáng sau. Mỗi thiết kế được may để tôn vóc dáng tự nhiên và mặc được nhiều lần, không chạy theo một mùa.
-          </p>
-          <p className="hm-intro__text">
-            Từ đầm dạ tiệc satin đến bộ mặc nhà cotton, tất cả đều được kiểm tra đường may và đóng gói tại xưởng Bắc Ninh trước khi giao đến bạn.
-          </p>
-          <div className="hm-intro__actions">
-            <Link href="/san-pham" className="hm-btn">Xem sản phẩm</Link>
-            <a href="#bo-suu-tap" className="hm-link">Bộ sưu tập</a>
-          </div>
-        </div>
-      </section>
+      <Countdown variant="bar" />
 
       {/* ---- Bộ sưu tập ---- */}
       <section className="hm-collection" id="bo-suu-tap" data-reveal>
@@ -100,27 +82,27 @@ export function Home() {
                   <span className="hm-ph">{it.price ?? "[Giá]"}</span>
                 </p>
               </Link>
+              <BuyBox item={it} compact />
             </li>
           ))}
         </ul>
       </section>
 
       {/* ---- Lookbook ---- */}
-      <section className="hm-look" id="lookbook" data-reveal>
-        <Image src={byId["dam-satin-nau"].src} alt={byId["dam-satin-nau"].name} width={1024} height={1024} sizes="(min-width: 900px) 34vw, 100vw" className="hm-look__img" data-parallax="0.08" />
+      <section className="hm-look bg-brown" id="lookbook" data-reveal>
+        <Image src={byId["dam-satin-nau"].src} alt={byId["dam-satin-nau"].name} width={1600} height={1600} sizes="(min-width: 900px) 50vw, 100vw" quality={92} className="hm-look__img" data-parallax="0.08" />
         <div className="hm-look__panel">
           <p className="hm-eyebrow hm-eyebrow--light">Lookbook</p>
           <h2 className="hm-h2 hm-h2--light">Một chiếc đầm, ba buổi tối khác nhau.</h2>
           <p>
             Đầm satin nâu đi cùng khăn voan ngà cho tiệc tối, khoác blazer đen cho buổi gặp đối tác, hoặc mặc trơn với sandal cho một bữa tối thong thả.
           </p>
-          <a href={business.tiktok} target="_blank" rel="noopener noreferrer" className="hm-link hm-link--light">Xem đầm satin nâu</a>
         </div>
-        <Image src={byId["dam-ong-navy"].src} alt={byId["dam-ong-navy"].name} width={1024} height={1024} sizes="(min-width: 900px) 32vw, 100vw" className="hm-look__img hm-look__img--2" data-parallax="0.08" />
+        <Image src={byId["dam-ong-navy"].src} alt={byId["dam-ong-navy"].name} width={1600} height={1600} sizes="(min-width: 900px) 50vw, 100vw" quality={92} className="hm-look__img hm-look__img--2" data-parallax="0.08" />
       </section>
 
       {/* ---- Size ---- */}
-      <section className="hm-size" id="size" data-reveal>
+      <section className="hm-size bg-cream" id="size" data-reveal>
         <div className="hm-size__side">
           <p className="hm-eyebrow">Chọn size</p>
           <h2 className="hm-h2">Đo một lần, chọn đúng mọi mẫu.</h2>
@@ -179,12 +161,12 @@ export function Home() {
       </section>
 
       {/* ---- Ba cam kết ---- */}
-      <section className="hm-promise" data-reveal>
+      <section className="hm-promise bg-nude" data-reveal>
         <div className="hm-promise__head">
           <h2 className="hm-h2">Ba điều SOLISST giữ với bạn</h2>
-          <div className="hm-promise__thumbs" aria-hidden="true" data-parallax="0.12">
+          <div className="hm-promise__thumbs" aria-hidden="true">
             {["dam-tulle-hong", "dam-satin-nau", "dam-ong-navy"].map((s) => (
-              <Image key={s} src={byId[s].src} alt="" width={1024} height={1024} sizes="8vw" />
+              <Image key={s} src={byId[s].src} alt="" width={1600} height={1600} sizes="8vw" />
             ))}
           </div>
         </div>
@@ -203,10 +185,10 @@ export function Home() {
       </section>
 
       {/* ---- FAQ ---- */}
-      <section className="hm-faq" data-reveal>
+      <section className="hm-faq bg-cream" data-reveal>
         <div className="hm-faq__side">
           <h2 className="hm-h2">Câu hỏi thường gặp</h2>
-          <Image src={byId["dam-ong-navy"].src} alt={byId["dam-ong-navy"].name} width={1024} height={1024} sizes="(min-width: 900px) 22vw, 100vw" className="hm-faq__img" data-parallax="0.1" />
+          <Image src={byId["dam-ong-navy"].src} alt={byId["dam-ong-navy"].name} width={1600} height={1600} sizes="(min-width: 900px) 34vw, 100vw" quality={90} className="hm-faq__img" data-parallax="0.1" />
         </div>
         <dl className="hm-faq__list" data-reveal="stagger">
           {faqs.map((f) => (

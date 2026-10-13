@@ -43,7 +43,7 @@ export function Landing() {
       <Countdown />
 
       {/* ---- Chất liệu & lookbook ---- */}
-      <section className="ld-look" aria-labelledby="look-title">
+      <section className="ld-look bg-cream" aria-labelledby="look-title">
         <div className="ld-look__copy">
           <h2 id="look-title" className="ld-h2">Mặc như nội y, giữ dáng như gen</h2>
           <dl className="ld-points">
@@ -79,7 +79,7 @@ export function Landing() {
       </section>
 
       {/* ---- Bảng size ---- */}
-      <section id="size" className="ld-size" aria-labelledby="size-title">
+      <section id="size" className="ld-size bg-cream" aria-labelledby="size-title">
         <h2 id="size-title" className="ld-h2">Chọn size theo vòng eo</h2>
         <p className="ld-size__hint">
           Đo ngang rốn, không hóp bụng. Giữa hai size, chọn size lớn hơn để mặc thoải mái cả ngày.
@@ -105,7 +105,7 @@ export function Landing() {
       </section>
 
       {/* ---- Chốt đơn ---- */}
-      <section id="dat-hang" className="ld-order" aria-labelledby="order-title">
+      <section id="dat-hang" className="ld-order bg-nude" aria-labelledby="order-title">
         <div className="ld-order__side">
           <h2 id="order-title" className="ld-h2">Đặt hàng</h2>
           <p className="ld-order__lead">
@@ -121,7 +121,7 @@ export function Landing() {
       </section>
 
       {/* ---- Liên hệ ---- */}
-      <footer className="ld-foot">
+      <footer className="ld-foot bg-black">
         <div className="ld-foot__brand">
           <Image src="/brand/solisst-logo.png" alt="SOLISST" width={1430} height={370} />
           <p>Fashion / Lifestyle / You</p>

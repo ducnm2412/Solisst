@@ -7,6 +7,7 @@ import { Footer } from "@/components/nav/Footer";
 import { IconCare, IconParcel, IconTag } from "@/components/loading/TrustIcons";
 import { ProductCard } from "./ProductCard";
 import { Catalog } from "./Catalog";
+import { Countdown } from "@/components/landing/Countdown";
 import { PhotoStrip } from "./PhotoStrip";
 
 export function CatalogPage() {
@@ -17,7 +18,7 @@ export function CatalogPage() {
       <Navbar solidAlways />
 
       {/* ---- Đầu trang ---- */}
-      <section className="ct-hero ct-hero--center">
+      <section className="ct-hero ct-hero--center bg-cream">
         <div className="ct-hero__copy">
           <p className="hm-eyebrow">Sản phẩm</p>
           <h1 className="hm-h1">Chọn một chiếc, mặc nhiều dịp.</h1>
@@ -32,6 +33,8 @@ export function CatalogPage() {
       </section>
 
       <PhotoStrip />
+
+      <Countdown variant="bar" />
 
       {/* ---- Ưu đãi ---- */}
       <ul className="ct-perks" aria-label="Ưu đãi">
@@ -63,7 +66,7 @@ export function CatalogPage() {
             return (
               <li key={c.id} className="ct-cat">
                 <Link href={`/san-pham/nhom/${c.id}`}>
-                  <Image src={cover.src} alt="" width={cover.width} height={cover.height} sizes="(min-width: 900px) 50vw, 100vw" quality={85} />
+                  <Image src={cover.src} alt="" width={cover.width} height={cover.height} sizes="(min-width: 900px) 60vw, 100vw" quality={90} />
                   <span className="ct-cat__body">
                     <strong>{c.name}</strong>
                     <span>{c.blurb}</span>
@@ -94,7 +97,7 @@ export function CatalogPage() {
       <Catalog />
 
       {/* ---- CTA ---- */}
-      <section className="ct-cta" data-reveal>
+      <section className="ct-cta bg-brown" data-reveal>
         <h2 className="hm-h2 hm-h2--light">Chưa chắc size?</h2>
         <p>Nhắn SOLISST kèm chiều cao, cân nặng và số đo. Shop tư vấn trong giờ làm việc, đổi size trong 7 ngày.</p>
         <div className="ct-hero__actions">

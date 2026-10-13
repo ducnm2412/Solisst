@@ -34,7 +34,7 @@ async function GroupList({ params }: Props) {
         <span aria-hidden="true">/</span>
         <span>{cat.name}</span>
       </nav>
-      <section className="ct-all">
+      <section className="ct-all bg-cream">
         <div className="ct-all__head">
           <div>
             <h1 className="hm-h2">{cat.name}</h1>

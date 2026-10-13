@@ -9,9 +9,12 @@ import "@/components/home/home.css";
 import "@/components/landing/landing.css";
 import "@/components/product/product.css";
 import "@/components/catalog/catalog.css";
+import "@/components/motion/motion-tier.css";
+import { MOTION_TIER_SCRIPT } from "@/components/motion/motion-tier";
 import { LoadingGate } from "@/components/loading/LoadingGate";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Reveal } from "@/components/motion/Reveal";
+import { BackToTop } from "@/components/nav/BackToTop";
 
 const display = Cormorant_Garamond({
   variable: "--font-display",
@@ -41,11 +44,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="vi" className={`${display.variable} ${sans.variable} h-full`}>
+    <html lang="vi" className={`${display.variable} ${sans.variable} h-full`} suppressHydrationWarning>
+      <head>
+        {/* Gắn tầng chuyển động trước khi vẽ để không chớp hiệu ứng trên máy yếu */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_TIER_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <LoadingGate>{children}</LoadingGate>
         <SmoothScroll />
         <Reveal />
+        <BackToTop />
       </body>
     </html>
   );

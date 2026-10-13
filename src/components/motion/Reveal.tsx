@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { motionTier } from "./motion-tier";
 
 /**
  * Hiện dần các phần tử có thuộc tính `data-reveal` khi chúng cuộn vào khung nhìn.
@@ -57,10 +58,12 @@ function setup(): () => void {
   });
   mo.observe(document.body, { childList: true, subtree: true });
 
-  // Parallax: phần tử có data-parallax trôi chậm hơn tốc độ cuộn
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const px = reduce ? [] : Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
+  // Parallax: phần tử có data-parallax trôi chậm hơn tốc độ cuộn.
+  // Chỉ ở tầng full, và chỉ bắt đầu sau khi trang load xong + một nhịp rảnh,
+  // để không ghi inline transform trước khi React hydrate xong (gây lệch hydrate).
+  const px = motionTier() === "full" ? Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]")) : [];
   let raf = 0;
+  let started = false;
   const update = () => {
     raf = 0;
     const vh = window.innerHeight;
@@ -74,15 +77,26 @@ function setup(): () => void {
   const onScroll = () => {
     if (!raf) raf = requestAnimationFrame(update);
   };
-  if (px.length) {
+  const start = () => {
+    if (started || px.length === 0) return;
+    started = true;
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-  }
+  };
+  const idle = (cb: () => void) => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    if (typeof w.requestIdleCallback === "function") w.requestIdleCallback(cb, { timeout: 600 });
+    else window.setTimeout(cb, 250);
+  };
+  const onLoad = () => idle(start);
+  if (document.readyState === "complete") onLoad();
+  else window.addEventListener("load", onLoad, { once: true });
 
   return () => {
     io.disconnect();
     mo.disconnect();
+    window.removeEventListener("load", onLoad);
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("resize", onScroll);
     if (raf) cancelAnimationFrame(raf);

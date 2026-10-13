@@ -49,20 +49,16 @@
 .hm-hero__stack,
 .hm-hero__center > *,
 .hm-hero__trust,
-.nav > .nav__brand,
 .nav > .nav__links,
-.nav > .nav__cta,
-.nav > .nav__burger {
+.nav > .nav__cta {
   opacity: 0;
 }
 .app-ready .hm-hero__top,
 .app-ready .hm-hero__stack,
 .app-ready .hm-hero__center > *,
 .app-ready .hm-hero__trust,
-.app-ready .nav > .nav__brand,
 .app-ready .nav > .nav__links,
-.app-ready .nav > .nav__cta,
-.app-ready .nav > .nav__burger {
+.app-ready .nav > .nav__cta {
   animation: heroIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .app-ready .nav > * { animation-delay: 0.1s; }
